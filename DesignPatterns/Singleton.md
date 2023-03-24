@@ -4,7 +4,7 @@
 
 ## Declaration
 
-```
+```swift
 public final class PushUtil { 
     private init() {}
     static let shared = PushUtil()
@@ -16,7 +16,7 @@ public final class PushUtil {
 ```
 
 ## Usage
-```
+```swift
 PushUtil.shared.notiTab.accept(())
 
 PushUtil.shared.newMessage
@@ -28,7 +28,7 @@ PushUtil.shared.newMessage
 
 ## UserDefaults (built-in singleton)
 
-```
+```swift
 import Foundation
 
 extension UserDefaults { 
