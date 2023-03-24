@@ -81,13 +81,13 @@
 ## 2.2. BlockQuote
 이메일에서 사용하는 ```>``` 블럭인용문자를 이용한다.
 ```
-> This is a first blockqute.
->	> This is a second blockqute.
->	>	> This is a third blockqute.
+> This is a first blockquote.
+>	> This is a second blockquote.
+>	>	> This is a third blockquote.
 ```
-> This is a first blockqute.
->	> This is a second blockqute.
->	>	> This is a third blockqute.
+> This is a first blockquote.
+>	> This is a second blockquote.
+>	>	> This is a third blockquote.
 
 이 안에서는 다른 마크다운 요소를 포함할 수 있다.
 > ### This is a H3
