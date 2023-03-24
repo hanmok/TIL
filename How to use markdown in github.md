@@ -1,8 +1,9 @@
 # How to use markdown in github
 
-## 1. First, create file and name it with extension '.md'
+## First, create file and name it with extension '.md'. 
+#### That's All 
 
-## 2. That is all
+<hr>
 
 # Here is some good resource to reference when using markdown
 ### from https://gist.github.com/ihoneymon/652be052a0727ad59601#file-how-to-write-by-markdown-md
