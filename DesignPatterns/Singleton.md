@@ -2,6 +2,22 @@
 
 ### Usual Singleton Pattern
 
+```swift
+class Singleton {
+    static let shared = Singleton()  // 전역으로 사용
+    
+    private init() {}    // 다른 곳에서 instance 생성하지 못하도록 private 사용
+    
+    var id: String?
+    var password: String?
+}
+```
+
+```swift
+Singleton.shared.id = "sth"
+```
+
+
 ## Declaration
 
 ```swift
