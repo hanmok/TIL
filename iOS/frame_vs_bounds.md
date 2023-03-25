@@ -29,7 +29,8 @@ Changing the frame rectangle automatically redisplays the view without calling i
 따라서, View 를 회전시키면 origin, frame 모두 변할 수 있다. 
 <br>
 
-![rotated_frame](image/rotated_frame.png)  
+![rotated_frame](image/rotated_frame.png)
+<!-- ![rotated_frame]<img src="image/rotated_frame.png" width="10px" height="30px"> -->
 
 >이때, bounds 는 동일 (origin: (0,0), size: (w:279, h:224))
 
@@ -62,13 +63,13 @@ Changes to this property can be animated.
 
 ## Frame이 SuperView 에서의 **상대**좌표계였다면, bounds 는 **자신의 좌표계**
 
-좌표의 시작점을 자신의 원점으로 놓음. 따라서, View 를 생성하면 bounds 의 origin (0,0) 이 기본값
+좌표의 시작점을 자신의 원점으로 놓음. 따라서, View 를 생성하면 bounds 의 origin 은 반드시 (0,0) 으로 초기화 되어있음.
 
 bounds 의 size 는 View 자체의 영역을 나타낸 것. 따라서, 회전해도 값은 동일(origin 도 동일)  
 (frame: View 가 차지하는 영역을 감싸서 만든 사각형의 영역)
 <br><br>
-||frame|bounds|
-|:---|:---:|:---:|
+||frame|bounds||
+|:---|:---:|:---:|---|
 |origin(x,y)|superView 의 좌표계|자신의 좌표계|
 |size(width, height)|View 영역을 모두 감싸는 사각형|View 영역 자체|
 
@@ -83,12 +84,12 @@ bounds 의 size 는 View 자체의 영역을 나타낸 것. 따라서, 회전해
 
 ## 둘은 각각 언제, 어떻게 사용할까?
 
-**frame.origin** 값을 변경하면, 해당 View 와 SubViews 도 그만큼 같이 이동.  
-**bounds.origin** 의 값을 변경하면, 해당 View 의 ***시점*** 이 이동 -> SubViews 만 이동.
-<br><br>
-예를 들면, 기존 (0,0)의 bounds.origin 은 사람이 끝점에서 모든 SubViews를 보는 상태이고,<br> bounds.origin 을 이동시키면 사람이 해당 좌표만큼 이동 후 보게 되어, SubViews들이 상대적으로 움직인 것처럼 보임. <br><br>
-![bounds_explantion](image/moving_bounds_origin.png){: width="300" height="500"}
-![rotated_frame]<img src="image/rotated_frame.png" width="10px" height="30px">
+View - **frame** 의 origin 값을 변경하면, 해당 View 의 SubViews 도 그만큼 같이 이동.  
+View - bounds.origin 의 값을 변경하면, 해당 View 의 ***시점*** 이 그만큼 이동.  
+<br>
+예를 들어 설명하면, 기존 (0,0)의 bounds.origin 은 사람이 끝점에서 모든 SubViews 보는 상태이고,<br> bounds.origin 을 이동시키면 사람이 해당 좌표만큼 이동 후 보게 되어, SubView 들이 상대적으로 움직인 것처럼 보임. <br><br>
+<!-- ![bounds_explantion](image/moving_bounds_origin.png) -->
+![bounds_explantion](image/moved_bounds_origin.png)
 <br><br><br>
 <hr>
 <br>
