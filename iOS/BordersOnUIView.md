@@ -133,8 +133,6 @@ var autoresizingMask: UIView.AutoresizingMask { get set }
 If the autoresizing behaviors do not offer the precise layout that you need for your views, you can use a custom container view and override its layoutSubviews() method to position your subviews more precisely.
 
 <br>
-View 의 Bounds 가 변할 때 Subviews 를 자동으로 resize 시키는데, 이때 resize 되는 방식
-<br>
 
   *<ins>integer bit mask</ins>: 정수의 이진수 표현을 활용한 기법, (OptionSet)
 
@@ -168,7 +166,7 @@ strut 가 존재하지 않다는 것은 해당 mask 에 대한 margin 이 flexib
 
 
 
-출처 <br>
+참고 자료<br>
 [https://stackoverflow.com/questions/17355280/how-to-add-a-border-just-on-the-top-side-of-a-uiview](https://stackoverflow.com/questions/17355280/how-to-add-a-border-just-on-the-top-side-of-a-uiview)  
 https://stackoverflow.com/questions/10468389/how-to-use-uiview-autoresizingmask-property-programmatically<br>
 https://junyng.tistory.com/35
