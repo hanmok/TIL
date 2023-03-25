@@ -8,40 +8,44 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let firstView1 = UIView(frame: CGRect(origin: CGPoint(x: 10, y: 100), size: CGSize(width: 200, height: 200)))
-//        firstView1.backgroundColor = .magenta
+//        let firstView = UIView()
+//        view.addSubview(firstView)
+//        firstView.frame.origin = .zero
+//        firstView.frame.size = CGSize(width: 300, height: 300)
+//        firstView.backgroundColor = .magenta
+//        firstView.autoresizingMask = [.flexibleLeftMargin]
 //
-//        let secondView1 = UIView()
-//        secondView1.frame = CGRect(origin: CGPoint(x: 10, y: 20), size: CGSize(width: 100, height: 100))
-//        secondView1.backgroundColor = .cyan
-//        view.addSubview(firstView1)
-//        firstView1.addSubview(secondView1)
+//        UIView.animate(withDuration: 3.0, delay: 2.0) {
+//            firstView.bounds.size = CGSize(width: 200, height: 200)
+//        }
         
-//        let scrollView = UIScrollView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 100, height: 200)))
-        let scrollView = UIScrollView()
-        self.view.contentview
-        scrollView.frame = view.frame
-        scrollView.contentSize = CGSize(width: 2000, height: 5000)
-        scrollView.backgroundColor = .magenta
-        scrollView.delegate = self
-        view.addSubview(scrollView)
-        scrollView.contentOffset
+        let superView = UIView(frame: CGRect(origin: CGPoint(x: 100, y: 300),
+                                        size: CGSize(width: 200, height: 200)))
+        superView.backgroundColor = .green
+        view.addSubview(superView)
+        
+        let subview = UIView(frame: CGRect(origin: CGPoint(x: 100, y: 100),
+                                           size: CGSize(width: 100, height: 100)))
+        subview.backgroundColor = .systemBlue
+        superView.addSubview(subview)
+        
+//        subview.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
+//        subview.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
+//        subview.autoresizingMask = [.flexibleLeftMargin, .flexibleBottomMargin]
+        
+//        subview.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
+//        subview.autoresizingMask = [.flexibleBottomMargin]
+        
+        subview.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
 
-
-
-            }
-    
-
-}
-
-
-extension ViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("bounds.origin: \(scrollView.bounds.origin), size: \(scrollView.bounds.size)")
+        UIView.animate(withDuration: 2.5) {
+            superView.bounds.size = CGSize(width: 300, height: 300)
+        }
+        
+        
     }
-    
 }

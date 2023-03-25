@@ -1,26 +1,25 @@
 # Layout Subviews Methods
 
-# layout subviews관련 Methods란?
+# Layout subviews 관련 Methods 란?
 
-- **ViewController**관련 method인 **viewWillAppear**, **viewDidAppear 등**이 존재하듯이,
-
- 레이아웃이 결정되기 전, 후의 methods 가 존재
+- **ViewController**관련 method인 **viewWillAppear**, **viewDidAppear 등**이 존재하듯이, 레이아웃이 결정되기 전, 후 subviews 의 methods 가 존재
 
 - **UIKit** 에는 **ViewController** 의 등장과 연관된 부가적인 작업을 할 수 있도록 다양한 methods 가 존재
 - **Layout** **Subviews** 역시 레이아웃이 결정되는 과정 중에 레이아웃과 연관된 부가적인 작업들을 수행할 수 있도록 **UIKit 에** 몇 가지 methods 가 존재
-- 
+<br><br>
+ 
 
 # ViewController에서 레이아웃이 결정되는 과정
 
 - **viewWillLayoutSubviews()** method 호출
-- **ViewController**의 컨텐트 뷰가 **layoutSubviews()** method 호출
+- **ViewController**의 ContentView 가 **layoutSubviews()** method 호출 (ContentView: UITableView 의 Cell 에 존재)
     - **layoutSubviews()**: 현재 레이아웃 정보들을 바탕으로 새로운 레이아웃 정보를 계산
     - 이후 뷰 계층구조를 순회하면서 모든 하위 뷰들이 동일한 method  호출
 - 레이아웃 정보의 변경사항을 뷰들에 반영
 - **viewDidLayoutSubviews()** method 호출
-
+<br><hr><br>
 # Layout subviews관련 Method
-
+<br>
 # viewWillLayoutSubviews()
 
 - View의 bounds가 변하면 view는 하위 views의 위치를 조정하는데, **레이아웃이 결정되기 전에** 다음과 같은 작업을 수행하고자 할때 이 method 를 override하여 사용
@@ -42,3 +41,6 @@
     - 다른 뷰들의 컨텐트 업데이트
     - 뷰들의 크기나 위치를 최종적으로 조정
     - 테이블의 데이터를 reload
+
+
+출처: https://ios-development.tistory.com/195
