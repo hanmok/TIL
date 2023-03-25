@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         
 //        let scrollView = UIScrollView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 100, height: 200)))
         let scrollView = UIScrollView()
-        scrollView.bo
+        self.view.contentview
         scrollView.frame = view.frame
         scrollView.contentSize = CGSize(width: 2000, height: 5000)
         scrollView.backgroundColor = .magenta
