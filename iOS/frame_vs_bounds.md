@@ -3,7 +3,8 @@
 ## Frame
 ***Summary***
 
->The frame rectangle, which describes the view’s location and size in its superview’s coordinate system.
+>The frame rectangle, which describes the view’s location and size ***in its superview’s coordinate system***. (superView 의 좌표계에 대한 view 의 location, size)
+
 Declaration
 
 ```swift
@@ -19,11 +20,13 @@ Changing the frame rectangle automatically redisplays the view without calling i
 
 <br>
 
-### **SuperView** 의 **origin**을 (0,0) 으로 놓고, **origin**으로부터 떨어져 있는 위치 == *frame* 의 *origin(x,y)*
+### **SuperView** 의 **origin**을 (0,0) 으로 놓았을 때, **origin**으로부터 떨어져 있는 위치 == *view.frame.origin(x,y)*
 > **origin**: View 의 가장 왼쪽, 윗부분
+ 
+<br><br>
 
-### frame 의 size 는 View 자체의 크기가 아니라, _**View 가 차지하는 영역을 감싸서 만든 사각형의 영역**_. 
-### 따라서, View 를 회전시키면 origin, frame 모두 변할 수 있다. 
+### frame 의 size 는 View 자체의 크기가 아니라, _**View 가 차지하는 영역을 감싸서 만든 사각형의 영역**_. <br>
+따라서, View 를 회전시키면 origin, frame 모두 변할 수 있다. 
 <br>
 
 ![rotated_frame](image/rotated_frame.png)  
@@ -32,14 +35,9 @@ Changing the frame rectangle automatically redisplays the view without calling i
 
 <br>
 <br>
-
-<br>
-
-<br>
 <hr>
 <br>
-<br>
-<br>
+
 
 ## Bounds
 
@@ -47,8 +45,7 @@ Changing the frame rectangle automatically redisplays the view without calling i
 
 **Summary**
  
-> The bounds rectangle, which describes the view’s location and size in its **own coordinate system** 
-> <br>(자신의 좌표계에 대한 location, size).
+> The bounds rectangle, which describes the view’s location and size in its **own coordinate system**  (자신의 좌표계에 대한 location, size)
 
 **Declaration**
 ```swift
@@ -56,7 +53,7 @@ var bounds: CGRect { get set }
 ```
 Discussion
 
->**The default bounds origin is (0,0)** and the size is the same as the size of the rectangle in the frame property. **Changing the size portion of this rectangle grows or shrinks the view relative to its center point**. Changing the size also changes the size of the rectangle in the frame property to match. The coordinates of the bounds rectangle are always specified in points.
+>***The default bounds origin is (0,0)*** and the size is the same as the size of the rectangle in the frame property. **Changing the size portion of this rectangle grows or shrinks the view relative to its center point**. Changing the size also changes the size of the rectangle in the frame property to match. The coordinates of the bounds rectangle are always specified in points.
 Changing the bounds rectangle automatically redisplays the view without calling its draw(_:) method. If you want UIKit to call the draw(_:)
  method, set the contentMode property to UIView.ContentMode.redraw.
 Changes to this property can be animated.
