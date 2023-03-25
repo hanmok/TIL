@@ -80,17 +80,17 @@ private let deleteButton = UIButton().then {
 <hr>
 
 ## What is AutoResizingMask? 
-
-*Resize 할 때 각 Side에 옵션(fixed or flexible)을 주어 Layout 의 생김새를 정하는 것.*<br>
-SuperView 의 Size 가 변할 때, subViews 의 위치는 어떻게 조정할 지에 대한 가이드  
+SuperView 의 Size 가 변할 때, subViews 는 resize 된다.   
+*이때, subView의 각 Side에 옵션(fixed or flexible)을 주어 Layout 의 생김새를 정하는 것.*<br>
 <br>
-해당 속성은 bit mask 로 구성되었고, 여기서 'mask'는 Bit 를 덮는다는 의미. <br>
-각 Side 및 Width, Height 를 Flexible 로 처리할지에 대한 상태 값이 0(false), 1(true) 로 구성, 
+해당 property 는 bit mask 로 구성되었고, 여기서 'mask'는 Bit 를 덮는다는 의미. <br>
+각 <ins>Side</ins> 및 <ins>Width</ins>, <ins>Height</ins> 를 Flexible 로 처리할지에 대한 상태 값이 0(false), 1(true) 로 구성.  
 1 로 digit 을 설정하면 주어진 bit mask 의 각 digit 을 <ins>'덮는다'</ins>는 것으로 추정. 
 
 
 <br>
 <br>
+
 ## AutoResizingMask
 <br>
 
