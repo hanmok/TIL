@@ -54,12 +54,11 @@ Fahrenheit Structure 는 **parameter 가 없는** 하나의 initializer 를 정�
 <br>
 ### Default Property Values
 
-Stored property 의 초기값은 위와 같이 initializer 에서 설정해줄 수도 있고, property 의 declaration 부분에서 default property value 를 정해줄 수도 있다. Property 가 defined 될 때 할당할 Default value를 넣어주면 된다. 
+Stored property 의 초기값은 위와 같이 initializer 에서 설정해줄 수도 있고, property 의 declaration 부분에서 default property value 를 정해줄 수도 있다. Property 가 defined 될 때 할당할 Default value를 정해주면 된다. 
 
 > Note
 > 
-
-만약 property 가 항상 같은 초기값을 갖는다면, initializer 내에서 값을 설정하는 것보다는 default value 를 정해주도록 하자. 결과는 같지만, default value 는 property 의 initialization 을 더 강하게 묶는다. (The end result is the same, but the default value ties the property’s initialization more closely to its declaration) 이렇게 하면 짧고 명료한 initializers 를 만들 수 있고, default value 로부터 type 을 추론할 수 있게 해준다. Default value 는 default initializers 와 initializer inheritance 의 이점 또한 이용하기 쉽게 해준다. (나중에 나온다. 
+> 만약 property 가 항상 같은 초기값을 갖는다면, initializer 내에서 값을 설정하는 것 보다는 **default value** 를 정해주도록 하자. 결과는 같지만, default value 는 property 의 initialization 와 declaration 을 더 강하게 묶어준다. 이렇게 하면 짧고 명료한 initializers 를 만들 수 있고, default value 로부터 type 을 추론할 수 있게 해준다. Default value 는 default initializers 와 initializer inheritance 의 이점 또한 이용하기 쉽게 해준다. (나중에 나온다.)
 
 Property 가 declared 되는 시점에 temperature property 에 default value 를 제공함으로써 위 Fahrenheit structure 를 아래와 같이 더 단순한 형태로 만들 수 있다. 
 
@@ -68,20 +67,18 @@ struct Fahrenheit {
 	var temperature = 32.0
 }
 ```
+<br><br>
 
 # Customizing Initialization
 
-Input parameters 와 optional property types 를 이용하거나, initialization 과정 중 constant properties 에 할당하면 initialization process 를 customize 할 수 있다.
+Input parameters 와 optional property types 를 이용하거나, initialization 과정 중 constant properties 에 할당하는 방식으로 initialization process 를 customize 할 수 있다.
 
 ### Initialization Parameters
 
-(Initializer’s 의 definition 부분에서 initialization parameter 를 넣어주면 values 의 types 과 names …)
+Initializer 의 definition 부분에서 initialization parameters 를 제공할 수 있다. (values 의 types, names 를 정의하기 위함)
+Initialization parameters 는 function, method parameters 와 같은 capabilities 및 syntax 를 갖는다.
 
-You can provide initialization parameters as part of an initializer’s definition, to define the types and names of values that customize the initialization process. 
-
-Initialization parameters 는 function, method parameters 와 같은 capabilites 및 syntax 를 갖는다.
-
-아래 예제에서는 Celsius structure 를 정의하고, 이는 Celsius 단위의 temperatures 를 저장한다.  Celsius structure 에서는 두개의 custom initializers 를 구현하고있다.  init(fromHahrenheit:), init(fromKelvin:) 는 다른 temperature scale 로부터 새로운 Celsius instance 를 initialize 한다. 
+아래 예제에서는 Celsius structure 를 정의하고, 이 structure 는 Celsius 단위의 temperatures 를 저장한다. Celsius structure 에서는 두개의 custom initializers 를 구현하고있다. init(fromHahrenheit:), init(fromKelvin:) 는 다른 temperature scale 로부터 새로운 Celsius instance 를 initialize 한다. 
 
 ```swift
 struct Celsius { 
@@ -100,13 +97,14 @@ let freezingPointOfWater = Celsius(fromKelvin: 273.15)
  // freezingPointOfWater.temperatureInCelsius is 0.0
 ```
 
-첫번째 initializer 는 argument label 로 fromFahrenheit 를, parameter name 으로 fahrenheit 을 갖는다. 두번째 initializer 는 argument label 로 fromKelvin 을, parameter name 으로 kelvin 을 갖는다. 두 initializers 모두 하나의 argument 를 Celsius 단위로 변환 후 temperatureInCelsius property 에 저장한다. 
-
+첫번째 initializer 는 argument label 로 fromFahrenheit 를, parameter name 으로 fahrenheit 을 갖고, 두번째 initializer 는 각각 fromKelvin, kelvin 을 갖는다. 두 initializers 모두 하나의 argument 를 Celsius 단위로 변환 후 temperatureInCelsius property 에 저장한다. 
+<br><br>
 ### Parameter Names and Argument Labels
 
-Function, method parameters 와 같이 initialization parameters 는 parameter name (init body 에 사용) 과 argument label (init 을 호출할 때 사용) 를 가질 수 있다. 그러나 initializers 는 function, method 처럼 괄호 전에 그것들을 구분하는 ‘이름’ 을 갖지는 않는다. 따라서, initializer 내 parameters 의 이름과 type 은  initializer 들을 구분하는 역할을 한다. 그렇기 때문에, Swift 는 본인이 직접 만들어주지 않는 경우 각 parameter 에 대해 자동으로 argument label 을 만들어 initializer 를 제공한다. 
+Function, method parameters 와 같이 initialization parameters 는 parameter name (init body 에서 사용) 과 argument label (init 을 호출할 때 사용) 을 가질 수 있다. 그러나 initializers 는 function, method 처럼 괄호 전에 그것들을 구분하는 ‘<ins>이름</ins>’ 을 갖지는 않는다. 따라서, initializer 내 parameters 의 name과 type 은  initializer 들을 ***구분***하는 역할을 한다. 그렇기 때문에, Swift 는 본인이 직접 만들어주지 않는 경우 각 parameter 에 대해 자동으로 argument label 을 만들어 initializer 를 제공한다.  
+<br>
 
-아래 예시에서는 세개의 constant properties (red, green, blue) 를 갖는 Color structure 를 정의한다. 세 properties 는 각 color 의 양을 의미하는 0.0 ~ 1.0 사이의 값을 갖는다. Color 는 Double Type 의 red, green, blue 로 구성된 initializer 를 제공한다. Color 는 또한 두번째 ‘white’ parameter 하나만 갖는 initializer 도 갖는다. 이 initializer 는 세 color components 에 같은 값을 줄 때 사용된다. 
+아래 예시에서는 세개의 constant properties (red, green, blue) 를 갖는 Color structure 를 정의한다. 세 properties 는 각각 color 의 양을 의미하는 0.0 ~ 1.0 사이의 값을 갖는다. ***Color*** 는 Double Type 의 red, green, blue 로 구성된 initializer 를 제공한다. Color 는 또한 ‘white’ parameter 하나만 갖는 initializer 도 갖는다. 이 initializer 는 세 color components 에 같은 값을 줄 때 사용된다. 
 
 ```swift
 struct Color {
@@ -124,23 +122,29 @@ struct Color {
 }
 ```
 
-두 initializers 모두 각 parameter 에 값을 넣어주면 새 Color instance 를 만들 때 사용될 수 있다. 
+<br>
+두 initializers 모두 각 parameter 에 값을 넣어주어 새 Color instance 를 만들 때 사용될 수 있다. 
+
+<br>
 
 ```swift
 let magenta = Color(red: 1.0, green: 0.0, blue: 1.0)
 let halfGray = Color(white: 0.5)
 ```
 
-이 initializers 를 argument labels 없이 호출하는 건 불가능하다. Argument labels 는 initializer 에서 정의되어있다면 반드시 항상 사용되어야 하며, 그렇지 않으면 compile-time error 를 맞이하게 된다. 
+<br>
+
+이 initializers 를 argument labels 없이 호출하는 건 ***불가능***하다. Argument labels 는 initializer 에서 정의되어있다면 반드시 항상 사용되어야 하며, 그렇지 않으면 compile-time error 가 발생한다.
 
 ```swift
 let veryGreen = Color(0.0, 1.0, 0.0)
 // error: Missing argument labels 'red:green:blue:' in call
 ```
+<br>
 
 ### Initializer Parameters Without Argument Labels
 
-Initializer parameter 에 argument label 을 사용하기 싫다면, underscore(_) 를 사용하여 default behavior 를 override 할 수 있다. 아래는 위 Celsius struct 의 확장된 버전이다. 여기에서는 Celsius scale 의 값을 바로 사용할 수 있는 initialize 가 있다.
+Initializer parameter 에 argument label 을 사용하고 싶지 않다면, underscore(_) 를 사용하여 default behavior 를 ***override*** 할 수 있다. 아래는 위 Celsius struct 의 확장된 버전이다. 여기에서는 Celsius scale 의 값을 바로 사용할 수 있는 initialize 가 있다.
 
 ```swift
 struct Celsius {
@@ -160,7 +164,9 @@ let bodyTemperature = Celsius(37.0)
 // bodyTemperature.temperatureInCelsius is 37.0
 ```
 
-Celsius(37.0) initializer call 의 의미는 argument label 없이도 명확하다. 따라서, init(_ celsius: Double) 로 명명하여 unnamed Double 값을 넣어주도록 하는게 적합하다. 
+Celsius(37.0) initializer 의 의미는 argument label 없이도 명확하다. 따라서, init(_ celsius: Double) 로 명명하여 unnamed Double 값을 넣어주도록 하는게 적절하다. 
+<br>
+<br>
 
 ### Optional Property Types
 
