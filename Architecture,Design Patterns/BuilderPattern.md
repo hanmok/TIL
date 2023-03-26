@@ -173,3 +173,6 @@ print("third burger")
 beefBurger.getAllProperty()
 ```
 
+
+출처<br>
+https://icksw.tistory.com/236
