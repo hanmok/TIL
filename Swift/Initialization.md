@@ -170,126 +170,157 @@ Celsius(37.0) initializer 의 의미는 argument label 없이도 명확하다. �
 
 ### Optional Property Types
 
-If your custom type has a stored property that’s logically allowed to have “no value”—perhaps because its value can’t be set during initialization, or because it’s allowed to have “no value” at some later point—declare the property with an optional type. Properties of optional type are automatically initialized with a value of nil, indicating that the property is deliberately intended to have “no value yet” during initialization.
+만약 논리적으로 '값 없는 상태'가 허용되는 (initialization 과정에서 설정될 수 없거나 어떤 시점에 값이 없을 수 있는 상황) stored property 를 가지는 경우, property 를 optional type 으로 선언하자. optional type 의 properties 는 자동으로 nil 로 초기화되며, 이는 property 가 initialization 과정 중 값이 없는 상태가 의도된 경우를 의미한다. 
 
-The following example defines a class called SurveyQuestion, with an optional String property called response:
+아래 예시에서는 optional String type 의 'response' property를 갖는 SurveyQuestion 이라는 class 를 정의한다.
+
+<br>
+
 ```swift
-
+class SurveyQuestion {
+    var text: String
+    var response: String?
+    init(text: String) {
+        self.text = text
+    }
+    func ask() {
+        print(text)
+    }
+}
+let cheeseQuestion = SurveyQuestion(text: "Do you like cheese?")
+cheeseQuestion.ask()
+// Prints "Do you like cheese?"
+cheeseQuestion.response = "Yes, I do like cheese."
 ```
-1. class SurveyQuestion {
-2. var text: String
-3. var response: String?
-4. init(text: String) {
-5. self.text = text
-6. }
-7. func ask() {
-8. print(text)
-9. }
-10. }
-11. let cheeseQuestion = SurveyQuestion(text: "Do you like cheese?")
-12. cheeseQuestion.ask()
-13. // Prints "Do you like cheese?"
-14. cheeseQuestion.response = "Yes, I do like cheese."
 
-The response to a survey question can’t be known until it’s asked, and so the response property is declared with a type of String?, or “optional String”. It’s automatically assigned a default value of nil, meaning “no string yet”, when a new instance of SurveyQuestion is initialized.
+survey question 에 대한 응답은 묻기 전까지 알 수 없으며, 따라서 response property 는 optional String 으로 선언되어있다. 새로운 SurveyQuestion 이 초기화 될 때 기본 값으로 nil 을 가지며, '값 없음' 을 의미한다.
+
+<br>
 
 ### Assigning Constant Properties During Initialization
 
-You can assign a value to a constant property at any point during initialization, as long as it’s set to a definite value by the time initialization finishes. Once a constant property is assigned a value, it can’t be further modified.
+<br>
 
-NOTE
+ initialization 가 끝날 때까지 명확한 값을 갖게된다면, 과정 도중 constant property 에 값을 할당할 수 있다.  constant property 에 값이 할당되면, 그 후에는 변경될 수 없다.
 
-For class instances, a constant property can be modified during initialization only by the class that introduces it. It can’t be modified by a subclass.
+<br>
+
+
+>NOTE
+>
+>class instances 의 경우, constant property 는 해당 instance 를 만든 class 에 의해서만 initialization 도중 변경될 수 있다. subclass 에 의해서는 변경될 수 없다. 
 
 You can revise the SurveyQuestion example from above to use a constant property rather than a variable property for the text property of the question, to indicate that the question doesn’t change once an instance of SurveyQuestion is created. Even though the text property is now a constant, it can still be set within the class’s initializer:
-```swift
 
+SurveyQuestion 예제를 아래와 같이 question 에 대해 variable 이 아닌 constant property 를 갖도록 변경할 수 있고, 이는 SurveyQuestion 의 instance 가 생긴 후로는 변경되지 않을 것을 의미한다. text property 가 constant 이지만 여전히 class's initializer 내에서 값이 정해질 수 있다.
+
+```swift
+class SurveyQuestion {
+    let text: String
+    var response: String?
+    init(text: String) {
+        self.text = text
+    }
+    func ask() {
+        print(text)
+    }
+}
+let beetsQuestion = SurveyQuestion(text: "How about beets?")
+beetsQuestion.ask()
+// Prints "How about beets?"
+beetsQuestion.response = "I also like beets. (But not with cheese.)"
 ```
-1. class SurveyQuestion {
-2. let text: String
-3. var response: String?
-4. init(text: String) {
-5. self.text = text
-6. }
-7. func ask() {
-8. print(text)
-9. }
-10. }
-11. let beetsQuestion = SurveyQuestion(text: "How about beets?")
-12. beetsQuestion.ask()
-13. // Prints "How about beets?"
-14. beetsQuestion.response = "I also like beets. (But not with cheese.)"
+
 
 # Default Initializers
 
 Swift provides a default initializer for any structure or class that provides default values for all of its properties and doesn’t provide at least one initializer itself. The default initializer simply creates a new instance with all of its properties set to their default values.
 
 This example defines a class called ShoppingListItem, which encapsulates the name, quantity, and purchase state of an item in a shopping list:
+
+Swift 는 어떠한 structure 나 class 에 대해(모든 properties 에 대해 default values 가 있고 initializer 가 자체로 주어지지 않은) default initializer 를 제공한다. Default initializer 는 단순히 모든 properties 가 default values 로 설정된 상태의 새로운 instance 를 생성시킨다. 
+<br>
+
 ```swift
-
+class ShoppingListItem {
+    var name: String?
+    var quantity = 1
+    var purchased = false
+}
+var item = ShoppingListItem()
 ```
-1. class ShoppingListItem {
-2. var name: String?
-3. var quantity = 1
-4. var purchased = false
-5. }
-6. var item = ShoppingListItem()
+<br>
 
-Because all properties of the ShoppingListItem class have default values, and because it’s a base class with no superclass, ShoppingListItem automatically gains a default initializer implementation that creates a new instance with all of its properties set to their default values. (The name property is an optional String property, and so it automatically receives a default value of nil, even though this value isn’t written in the code.) The example above uses the default initializer for the ShoppingListItem class to create a new instance of the class with initializer syntax, written as ShoppingListItem(), and assigns this new instance to a variable called item.
+ShoppingListItem class 의 모든 properties 가 default values 를 가지고있고, superclass 가 없는 base class 이므로, ShoppingListItem class 는 자동으로 default initializer 를 갖고, 이는 모든 properties 가 default values 을 갖는 새로운 instance 를 생성할 수 있게 한다. (name property 는 optional string 이므로 nil 을 기본값으로 갖는다.) 위 예시에서는 ShoppingListItem class 의 default initializer ShoppingListItem() 를 사용해서 새로운 instance 를 만들고, 'item' 에 그 instance 를 할당시킨다. 
+
+<br>
 
 ### Memberwise Initializers for Structure Types
 
-Structure types automatically receive a memberwise initializer if they don’t define any of their own custom initializers. Unlike a default initializer, the structure receives a memberwise initializer even if it has stored properties that don’t have default values.
+Structure types 는 만약 custom initializers 를 정의하지 않는다면, 자동으로 memberwise initializer 를 갖는다. Default initializer 와는 다르게, structure는 stored properties 가 default values 를 갖지 않더라도 memberwise initializer 를 받는다.
 
-The memberwise initializer is a shorthand way to initialize the member properties of new structure instances. Initial values for the properties of the new instance can be passed to the memberwise initializer by name.
+Memberwise initializer 는 새로운 structure instance 의 member properties 를 초기화시키는 간단한 방법이다. 새로운 instance 의 초기 값들은 '이름' 을 통해 memberwise initializer 로 전해진다. 
 
-The example below defines a structure called Size with two properties called width and height. Both properties are inferred to be of type Double by assigning a default value of 0.0.
+아래 예시에서는 width, height 두 properties 를 갖는 Size structure 를 정의한다. 두 properties 는 모두 기본값 0.0 을 가짐으로써 Double Type 으로 추론된다. 
 
-The Size structure automatically receives an init(width:height:) memberwise initializer, which you can use to initialize a new Size instance:
+Size structure 는 자동으로 init(width:height:) memberwise initializer 를 갖게되고, 새로운 Size instance 를 만들 때 사용할 수 있다.
+
+
+
 ```swift
-
+struct Size {
+    var width = 0.0, height = 0.0
+}
+let twoByTwo = Size(width: 2.0, height: 2.0)
 ```
-1. struct Size {
-2. var width = 0.0, height = 0.0
-3. }
-4. let twoByTwo = Size(width: 2.0, height: 2.0)
 
-When you call a memberwise initializer, you can omit values for any properties that have default values. In the example above, the Size structure has a default value for both its height and width properties. You can omit either property or both properties, and the initializer uses the default value for anything you omit—for example:
+Memberwise initializer 를 호출할 때, default values 를 가지고 잇는 properties 에 대해서는 생략해도 된다. 위 예시에서 Size structure 는 두 height, width properties 모두에 대해 default value 를 가지고 있다. 따라서, 어떠한 property 도 생략해도 되고, 생략된 property 에 대해서는 default value 를 할당한다. 
+
+<br>
+
 ```swift
+let zeroByTwo = Size(height: 2.0)
+print(zeroByTwo.width, zeroByTwo.height)
+// Prints "0.0 2.0"
 
+let zeroByZero = Size()
+print(zeroByZero.width, zeroByZero.height)
+// Prints "0.0 0.0"
 ```
-1. let zeroByTwo = Size(height: 2.0)
-2. print(zeroByTwo.width, zeroByTwo.height)
-3. // Prints "0.0 2.0"
-4.  
-5. let zeroByZero = Size()
-6. print(zeroByZero.width, zeroByZero.height)
-7. // Prints "0.0 0.0"
+<br>
+
 
 # Initializer Delegation for Value Types
 
-Initializers can call other initializers to perform part of an instance’s initialization. This process, known as initializer delegation, avoids duplicating code across multiple initializers.
+Initializer는 instance initialization의 일부를 수행하기 위해 다른 initializers 를 호출할 수 있다. 이 과정을 **initializer delegation** 이라고 부르며, 여러 initializers 간 중복되는 코드를 피하기 위함이다. 
 
-The rules for how initializer delegation works, and for what forms of delegation are allowed, are different for value types and class types. Value types (structures and enumerations) don’t support inheritance, and so their initializer delegation process is relatively simple, because they can only delegate to another initializer that they provide themselves. Classes, however, can inherit from other classes, as described in [Inheritance](https://docs.swift.org/swift-book/LanguageGuide/Inheritance.html). This means that classes have additional responsibilities for ensuring that all stored properties they inherit are assigned a suitable value during initialization. These responsibilities are described in [Class Inheritance and Initialization](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID216) below.
+<br>
 
-For value types, you use self.init to refer to other initializers from the same value type when writing your own custom initializers. You can call self.init only from within an initializer.
+Value type 인지, 또는 class type 인지에 따라서 initializer delegation 이 진행되는 rules, 그리고 어떤 형태의 delegation 이 허용될 지가 달라진다. Value types (structures, enumerations) 는 inheritance 를 지원하지 않으며, 따라서 initializer delegation process 는 그 자체에서 지원하는 initializer 에만 delegate 할 수 있으므로 비교적 단순하다. 그러나, Classes 의 경우 다른 classes 를 inherit 할 수 있다. 이는 classes 의 경우 inherit 한 모든 stored properties 가 initialization 과정 중 적당한 값으로의 할당이 보장되어야 하기 때문에 부수적인 responsibilities 가 필요하다는 것을 의미한다. 
 
-Note that if you define a custom initializer for a value type, you will no longer have access to the default initializer (or the memberwise initializer, if it’s a structure) for that type. This constraint prevents a situation in which additional essential setup provided in a more complex initializer is accidentally circumvented by someone using one of the automatic initializers.
+<br>
 
-NOTE
+Value types 의 경우, custom initializers 를 작성 할 때 같은 value type 내에서 다른 initializers 를 refer 하기 위해  self.init 를 사용한다. self.init 은 initializer 내에서만 호출할 수 있다.
 
-If you want your custom value type to be initializable with the default initializer and memberwise initializer, and also with your own custom initializers, write your custom initializers in an extension rather than as part of the value type’s original implementation. For more information, see [Extensions](https://docs.swift.org/swift-book/LanguageGuide/Extensions.html).
+<br>
 
-The following example defines a custom Rect structure to represent a geometric rectangle. The example requires two supporting structures called Size and Point, both of which provide default values of 0.0 for all of their properties:
+만약 value type 에 대해 custom initializer 를 정의한다면, 더이상 default initializer(structure 의 경우 memberwise init) 를 해당 type 에 대해 사용할 수 없게된다. 이러한 제약은 더 복잡한 initializer 에서의 **추가적으로 필수적인 setup** 이 다른 사람이 automatic initializers 사용함으로써 수행되지 않는 것을 방지한다. 
+
+<br>
+
+>NOTE  
+> 만약 본인의 custom value type 에 대해 default initializer 와 memberwise initializer, 그리고 custom initializers 모두 사용하고 싶은 경우, custom initializer 를 **extension** 에 작성하도록 하자. 
+
+아래 예시에서는 사각형을 나타내는 custom structure **Rect** 를 정의한다. 이는 두개의 structures (Size, Point) 를 필요로 하며, 두 structure 모두 모든 properties 에 대해 default value로서 0.0 을 갖는다.
+
 ```swift
-
+struct Size {
+    var width = 0.0, height = 0.0
+}
+struct Point {
+    var x = 0.0, y = 0.0
+}
 ```
-1. struct Size {
-2. var width = 0.0, height = 0.0
-3. }
-4. struct Point {
-5. var x = 0.0, y = 0.0
-6. }
 
 You can initialize the Rect structure below in one of three ways—by using its default zero-initialized origin and size property values, by providing a specific origin point and size, or by providing a specific center point and size. These initialization options are represented by three custom initializers that are part of the Rect structure’s definition:
 ```swift
