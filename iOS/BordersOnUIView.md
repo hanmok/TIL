@@ -91,7 +91,7 @@ SuperView 의 Size 가 변할 때, subViews 는 resize 된다.
 <br>
 <br>
 
-## AutoResizingMask
+## AutoResizingMask 
 <br>
 
 ```swift
@@ -165,8 +165,30 @@ strut 가 존재하지 않다는 것은 해당 mask 에 대한 margin 이 flexib
 <br>
 
 
+# translateAutoresizingMaskIntoConstraints
+
+## Summary
+
+>A Boolean value that determines whether the view’s autoresizing mask is translated into Auto Layout constraints.
+
+## Declaration
+
+```swift
+var translatesAutoresizingMaskIntoConstraints: Bool { get set }
+```
+
+## Discussion
+
+>If this property’s value is true, the system creates a set of constraints that duplicate the behavior specified by the view’s autoresizing mask. This also lets you modify the view’s size and location using the view’s frame, bounds, or center properties, allowing you to create a **static, frame-based layout within Auto Layout**.
+Note that the autoresizing mask constraints fully specify the view’s size and position; therefore, you cannot add additional constraints to modify this size or position without introducing conflicts. <ins>***If you want to use Auto Layout to dynamically calculate the size and position of your view, you must set this property to false, and then provide a non ambiguous, nonconflicting set of constraints for the view.***</ins>
+By default, the property is set to true for any view you programmatically create. If you add views in Interface Builder(storyboard), the system automatically sets this property to false.
+<br>
+<br>
+
+
 
 참고 자료<br>
 [https://stackoverflow.com/questions/17355280/how-to-add-a-border-just-on-the-top-side-of-a-uiview](https://stackoverflow.com/questions/17355280/how-to-add-a-border-just-on-the-top-side-of-a-uiview)  
 https://stackoverflow.com/questions/10468389/how-to-use-uiview-autoresizingmask-property-programmatically<br>
 https://junyng.tistory.com/35
+
