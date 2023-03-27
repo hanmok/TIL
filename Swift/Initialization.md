@@ -322,53 +322,66 @@ struct Point {
 }
 ```
 
-You can initialize the Rect structure below in one of three ways—by using its default zero-initialized origin and size property values, by providing a specific origin point and size, or by providing a specific center point and size. These initialization options are represented by three custom initializers that are part of the Rect structure’s definition:
+아래 Rect structure 를 세가지 방법 중 하나로 initialize 할 수 있다. 
+- default (zero 값을 갖는 origin, size 의 각 property) initializer
+- 어떤 origin point, size 를 갖는 initializer
+- 중심 점과 Size 를 갖는 initializer
+
+<br>
+
+해당 옵션들은 Rect structure 의 정의 내 세가지 custom initializers 로 표현된다. 
+
 ```swift
-
+struct Rect {
+    var origin = Point()
+    var size = Size()
+    init() {}
+    init(origin: Point, size: Size) {
+        self.origin = origin
+        self.size = size
+    }
+    init(center: Point, size: Size) {
+        let originX = center.x - (size.width / 2)
+        let originY = center.y - (size.height / 2)
+        self.init(origin: Point(x: originX, y: originY), size: size)
+    }
+}
 ```
-1. struct Rect {
-2. var origin = Point()
-3. var size = Size()
-4. init() {}
-5. init(origin: Point, size: Size) {
-6. self.origin = origin
-7. self.size = size
-8. }
-9. init(center: Point, size: Size) {
-10. let originX = center.x - (size.width / 2)
-11. let originY = center.y - (size.height / 2)
-12. self.init(origin: Point(x: originX, y: originY), size: size)
-13. }
-14. }
 
-The first Rect initializer, init(), is functionally the same as the default initializer that the structure would have received if it didn’t have its own custom initializers. This initializer has an empty body, represented by an empty pair of curly braces {}. Calling this initializer returns a Rect instance whose origin and size properties are both initialized with the default values of Point(x: 0.0, y: 0.0) and Size(width: 0.0, height: 0.0) from their property definitions:
+첫번째 Rect initializer 인 init() 은 custom initializer 가 없었다면 받았을 default initializer와 기능적으로 동일하다. 해당 initializer 의 body 는 비었고, 이는 {} 으로 나타내어진다. 이 initializer 를 호출시 Rect instance 의 origin, size 의 properties 가 모두 default value 인 Point(x: 0.0, y: 0.0), Size(width: 0.0, height: 0.0) 를 갖는 Rect instance 가 반환된다.
+
 ```swift
-
+let basicRect = Rect()
+// basicRect's origin is (0.0, 0.0) and its size is (0.0, 0.0)
 ```
-1. let basicRect = Rect()
-2. // basicRect's origin is (0.0, 0.0) and its size is (0.0, 0.0)
 
-The second Rect initializer, init(origin:size:), is functionally the same as the memberwise initializer that the structure would have received if it didn’t have its own custom initializers. This initializer simply assigns the origin and size argument values to the appropriate stored properties:
+두번째 initializer init(origin:size:) 는 custom initializer 가 없었다면 받았을 memberwise initializer 와 기능적으로 동일하다. 해당 initializer 는 단순히 origin 과 size argument 의 값들을 알맞은 stored properties 에 할당한다.
+
 ```swift
-
+let originRect = Rect(origin: Point(x: 2.0, y: 2.0),
+    size: Size(width: 5.0, height: 5.0))
+// originRect's origin is (2.0, 2.0) and its size is (5.0, 5.0)
 ```
-1. let originRect = Rect(origin: Point(x: 2.0, y: 2.0),
-2. size: Size(width: 5.0, height: 5.0))
-3. // originRect's origin is (2.0, 2.0) and its size is (5.0, 5.0)
 
-The third Rect initializer, init(center:size:), is slightly more complex. It starts by calculating an appropriate origin point based on a center point and a size value. It then calls (or delegates) to the init(origin:size:) initializer, which stores the new origin and size values in the appropriate properties:
+세번째 Rect initializer, init(center:size:) 는 조금 더 복잡하다. Center point 와 Size value 로부터 origin point 를 계산하고, init(origin:size:) 를 호출(delegate) 한다. 이때, 새로운 origin, size values 를 알맞은 properties 에 저장한다.
+
 ```swift
-
+let centerRect = Rect(center: Point(x: 4.0, y: 4.0),
+    size: Size(width: 3.0, height: 3.0))
+// centerRect's origin is (2.5, 2.5) and its size is (3.0, 3.0)
 ```
-1. let centerRect = Rect(center: Point(x: 4.0, y: 4.0),
-2. size: Size(width: 3.0, height: 3.0))
-3. // centerRect's origin is (2.5, 2.5) and its size is (3.0, 3.0)
 
-The init(center:size:) initializer could have assigned the new values of origin and size to the appropriate properties itself. However, it’s more convenient (and clearer in intent) for the init(center:size:) initializer to take advantage of an existing initializer that already provides exactly that functionality.
+init(center:size:) initializer 는 그 자체에서 새로운 origin, size 값을 적당한 properties 에 넣어줄 수도 있었다. 하지만, 이미 존재하고 정확히 같은 기능을 제공하는 initializer init(origin:size:) 를 이용하는게 더 편리하고 의도가 명확하다.
+
 
 NOTE
 
-For an alternative way to write this example without defining the init() and init(origin:size:) initializers yourself, see [Extensions](https://docs.swift.org/swift-book/LanguageGuide/Extensions.html).
+init() 과 init(origin:size) 를 정의하지 않고 똑같이 구현할 수 있는 다른 방법에 대해서는 [Extensions](https://docs.swift.org/swift-book/LanguageGuide/Extensions.html) 부분을 보도록 하자.
+
+
+<br><br><br>
+
+
 
 # Class Inheritance and Initialization
 
