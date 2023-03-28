@@ -36,5 +36,7 @@ Push Server 에서는 해당 과정을 위한 인증서(Certificate) 또는 Key 
 [.p8 발급받기](/iOS/Push%20Notification/GettingP8.md)  
 [.p12 발급받기](/iOS/Push%20Notification/GettingP12.md)  
 
+[APNs SSL Certificates](/)
+
 
 [Push Notification Code]
