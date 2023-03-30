@@ -2,7 +2,7 @@
 
 
 ### Server 에서 필요한 정보
-- app Bundle Id
+- App Bundle Id
 - TEAM ID 
 - P8 KEY_ID
 - AUTH_KEY_FILE
