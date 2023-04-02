@@ -27,7 +27,7 @@ Table 은 Data 를 가짐
 ### 예시
 
 - headers: Columns
-- Rows: 실제 데이터
+- Rows: 실제 데이터 
 
 |Name|Breed|Age|
 |--|--|--|
