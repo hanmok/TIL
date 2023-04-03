@@ -1,5 +1,9 @@
 
 
+# Basics
+
+
+
 # HEAD
 - HEAD 는 branch 를 가리키고, branch 는 commit 을 가리킨다.
 

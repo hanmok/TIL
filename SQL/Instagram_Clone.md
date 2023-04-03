@@ -4,21 +4,24 @@
 CREATE DATABASE instagram;
 
 USE instagram;
+```
 
+
+<br>
+<br>
+
+![](images/insta_schema1.png)
+```SQL
 CREATE TABLE users
 (
 id INT PRIMARY KEY AUTO_INCREMENT,
 username VARCHAR(50) UNIQUE NOT NULL,
 created_at TIMESTAMP DEFAULT NOW()
 );
+```
 
-DESC users;
 
-INSERT INTO users (username) VALUES
-('BlueTheCat'),
-('CharlieBrown'),
-('ColtSteele');
-
+```SQL
 CREATE TABLE photos
 (
 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -27,7 +30,10 @@ user_id INT NOT NULL,
 created_at TIMESTAMP DEFAULT NOW(),
 FOREIGN KEY (user_id) REFERENCES users(id)
 );
+```
 
+
+```SQL
 CREATE TABLE comments
 (
 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,7 +44,16 @@ created_at TIMESTAMP DEFAULT NOW(),
 FOREIGN KEY (user_id) REFERENCES users(id),
 FOREIGN KEY (photo_id) REFERENCES photos(id)
 );
+```
 
+<br>
+<br>
+<br>
+
+
+![](images/insta_schema2.png)
+
+```SQL
 CREATE TABLE likes
 (
 photo_id INT NOT NULL,
@@ -48,8 +63,9 @@ FOREIGN KEY (photo_id) REFERENCES photos(id),
 FOREIGN KEY (user_id) REFERENCES users(id),
 PRIMARY KEY(user_id, photo_id)
 );
-
-CREATE TABLE follows(
+```
+```SQL
+CREATE TABLE follows( 
 follower_id INT NOT NULL,
 followee_id INT NOT NULL,
 created_at TIMESTAMP DEFAULT NOW(),
@@ -57,14 +73,20 @@ FOREIGN KEY (follower_id) REFERENCES users(id),
 FOREIGN KEY (followee_id) REFERENCES users(id),
 PRIMARY KEY (follower_id, followee_id)
 );
+```
 
+
+![](images/insta_schema3.png)
+
+```SQL
 CREATE TABLE tags
 (
 id INT AUTO_INCREMENT PRIMARY KEY,
 tag_name VARCHAR(255) UNIQUE,
 created_at TIMESTAMP DEFAULT NOW()
 );
-
+```
+```SQL
 CREATE TABLE photo_tags
 (
 photo_id INT NOT NULL,
