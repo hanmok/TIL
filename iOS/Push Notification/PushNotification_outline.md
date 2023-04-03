@@ -38,5 +38,6 @@ Push Server 에서는 해당 과정을 위한 인증서(Certificate) 또는 Key 
 
 [APNs SSL Certificates](/)
 
+[Apple token-based connection Docs](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_token-based_connection_to_apns)
 
 [Push Notification Code]

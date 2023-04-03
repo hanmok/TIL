@@ -30,3 +30,4 @@ Date:   Mon Mar 27 16:54:05 2023 +0900
 43ee1ce (Git) Add Git, Linux
 8a2352a Add Push Notifications
 ```
+https://mytory.net/archives/13122
